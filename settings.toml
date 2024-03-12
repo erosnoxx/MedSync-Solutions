@@ -1,7 +1,7 @@
 [default]
 SECRET_KEY = '1234567890'
 SQLALCHEMY_TRACK_MODIFICATIONS = false
-EXTENSIONS = ['app.controllers.routes:init_app', 'app.controllers.extensions:init_app']
+EXTENSIONS = ['app.controllers.routes:init_app','app.controllers.api:init_app', 'app.controllers.extensions:init_app']
 STATIC_FOLDER = "static"
 
 [development]
