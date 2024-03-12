@@ -1,10 +1,15 @@
-from flask import request
-from . import auth_api
+import logging
+from flask import Blueprint, request
 from app.models.personal.users import User
-from app.database.users.create import SetUser, SetProfilePic, SetUserLevel
-from app.services.utils.fb_storage import upload
+from app.database.users.create import SetUser, SetUserLevel
+from app.database.users.read import GetUser
 from app.services.utils.validators import EmailValidator, PasswordValidator
+from app.controllers.extensions import db
 
+auth_api = Blueprint('auth_api', __name__, url_prefix='/api/v1/auth')
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @auth_api.route('/register/', methods=['POST'])
@@ -24,14 +29,15 @@ def register():
 
                     user_id = SetUser(**context)
 
-                    SetUserLevel(level_='adm', user_id=user_id)
-                    SetProfilePic(user_id=user_id, url=upload(data['profile_pic']))
+                    SetUserLevel(level_='usr', user_id=user_id)
 
                     return {
                         'message': 'user registered',
+                        'user_id': user_id,
                         'statuscode': 200
                     }, 200
                 except Exception as e:
+                    db.session.rollback()
                     return {
                         'message': f'error: {e}',
                         'statuscode': 500
@@ -51,3 +57,30 @@ def register():
             'message': 'user already registered',
             'statuscode': 400
         }, 400
+    
+
+@auth_api.route('/login/', methods=['POST'])
+def login_():
+    try:
+        data = request.json
+        context = {
+            'email': data['email'],
+            'password': data['password']
+        }
+        user_info = GetUser(**context)
+        if user_info['success']:
+            return {
+                'message': 'user authenticated',
+                'user': user_info['user'],
+                'statuscode': 200
+            }, 200
+        else:
+            return {
+                'message': f'authentication failed: {user_info["message"]}',
+                'statuscode': 401
+            }, 401
+    except Exception as e:
+        return {
+            'message': f'Error: {e}',
+            'statuscode': 500
+        }, 500

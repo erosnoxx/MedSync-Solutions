@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 
 
 def SetUser(**kwargs):
-    hashed_password = generate_password_hash(kwargs.get('password'), method='sha256')
+    hashed_password = generate_password_hash(kwargs.get('password'), method='pbkdf2:sha256')
     user = User(
         name=kwargs.get('name'),
         email=kwargs.get('email'),
@@ -18,24 +18,6 @@ def SetUser(**kwargs):
 
 
 def SetLevel(level_):
-    level = Level.query.all()
-
-    if level == None:
-        levels = [
-            Level(
-            level='usr'
-            ),
-            Level(
-                level='adm'
-            ),
-            Level(
-                level='pat'
-            )
-        ]
-
-        db.session.add_all(levels)
-        db.session.commit()
-
     level = Level.query.filter_by(level=level_).first()
 
     return level.id

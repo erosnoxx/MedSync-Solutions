@@ -13,7 +13,6 @@ class User(db.Model):
     # Relationships
     profile_pic = db.relationship('ProfilePic', backref='user', uselist=False)
     user_levels = db.relationship('UserLevel', backref='user')
-    doctors = db.relationship('Doctors', backref='user')
     # User Login
     @property
     def is_authenticated(self):

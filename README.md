@@ -14,7 +14,6 @@ O corpo da requisição deve ser enviado no formato JSON e conter os seguintes c
 - `name` (*string*): Nome completo do usuário.
 - `email` (*string*): Endereço de e-mail do usuário.
 - `password` (*string*): Senha escolhida pelo usuário.
-- `profile_pic` (*string*, opcional): URL da imagem de perfil do usuário.
 
 Exemplo de corpo da requisição:
 
@@ -22,8 +21,7 @@ Exemplo de corpo da requisição:
 {
   "name": "Nome Completo",
   "email": "usuario@example.com",
-  "password": "SenhaSegura123",
-  "profile_pic": "https://example.com/profile.jpg"
+  "password": "SenhaSegura1#",
 }
 ```
 # Respostas
@@ -33,6 +31,7 @@ Caso o registro seja bem-sucedido, a resposta será um JSON contendo:
 
 
 - `message` (*string*): Mensagem indicando o sucesso.
+- `user` (*integer*): ID do usuário registrado
 - `statuscode` (*integer*): Código de status HTTP 200.
 
 Exemplo de resposta de sucesso:
