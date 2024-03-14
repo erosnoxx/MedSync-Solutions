@@ -13,6 +13,8 @@ class User(db.Model):
     # Relationships
     profile_pic = db.relationship('ProfilePic', backref='user', uselist=False)
     user_levels = db.relationship('UserLevel', backref='user')
+    employees = db.relationship('Employees', backref='user')
+
     # User Login
     @property
     def is_authenticated(self):
@@ -53,3 +55,22 @@ class ProfilePic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     url = db.Column(db.String(255), nullable=False)
+
+
+class Business(db.Model):
+    __tablename__ = 'business'
+    id = db.Column(db.Integer, primary_key=True)
+    function = db.Column(db.String(255), nullable=False)
+
+    # Relationships
+    employees = db.relationship('Employees', backref='business')
+
+
+class Employees(db.Model):
+    __tablename__ = 'employees'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+                        nullable=False)
+    business_id = db.Column(db.Integer, db.ForeignKey('business.id'),
+                            nullable=False)

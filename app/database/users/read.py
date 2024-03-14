@@ -7,7 +7,7 @@ def GetUser(**kwargs):
 
     if user is not None:
         if check_password_hash(user.password, kwargs.get('password')):
-            return {'success': True, 'user': user}
+            return {'success': True, 'user_id': user.id}
         else:
             return {'success': False, 'message': 'Invalid password'}
     return {'success': False, 'message': 'User does not exist'}

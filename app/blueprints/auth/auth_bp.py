@@ -1,7 +1,6 @@
 import logging
-import requests
 from flask import Blueprint, render_template, request, url_for, redirect, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 from app.controllers.extensions import lm
 from app.models.personal.users import User
 from app.forms.auth.login import LoginForm, RegisterForm
@@ -45,11 +44,12 @@ def register():
                 user_id=response['user_id']
             )
             SetProfilePic(url=url, user_id=response['user_id'])
-            
+
             return redirect(url_for('auth.login_'))
         else:
             flash(response['message'])
     return render_template('auth/register.html', form=form)
+
 
 # Login
 @auth.route('/login/', methods=['POST', 'GET'])
@@ -57,6 +57,27 @@ def login_():
     form = LoginForm()
 
     if form.validate_on_submit():
-      pass  
+        context = {
+            'email': form.email.data,
+            'password': form.password.data
+        }
+
+        response = VerifyUser(**context)
+
+        if response['statuscode'] == 200:
+            user = User.query.filter_by(id=response['user_id']).first()
+            login_user(user)
+
+            return redirect(url_for('home.index'))
+        else:
+            flash(response['message'])
 
     return render_template('auth/login.html', form=form)
+
+
+# Logout
+@auth.route('/logout/')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login_'))

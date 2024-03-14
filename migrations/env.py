@@ -2,9 +2,9 @@ import logging
 from logging.config import fileConfig
 
 from flask import current_app
-from app.models.personal.users import *
 from app.models.personal.patients import *
-from app.models.business.business import *
+from app.models.personal.users import *
+from app.models.personal.schedule import *
 from alembic import context
 
 # this is the Alembic Config object, which provides

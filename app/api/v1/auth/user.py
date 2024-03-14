@@ -21,13 +21,14 @@ def register():
         if EmailValidator(data['email']):
             if PasswordValidator(data['password']):
                 try:
-                    context = {
-                        'name': data['name'],
-                        'email': data['email'],
-                        'password': data['password']
-                    }
 
-                    user_id = SetUser(**context)
+                    user_id = SetUser(
+                        **{
+                            'name': data['name'],
+                            'email': data['email'],
+                            'password': data['password']
+                        }
+                    )
 
                     SetUserLevel(level_='usr', user_id=user_id)
 
@@ -57,7 +58,7 @@ def register():
             'message': 'user already registered',
             'statuscode': 400
         }, 400
-    
+
 
 @auth_api.route('/login/', methods=['POST'])
 def login_():
@@ -71,7 +72,7 @@ def login_():
         if user_info['success']:
             return {
                 'message': 'user authenticated',
-                'user': user_info['user'],
+                'user_id': user_info['user_id'],
                 'statuscode': 200
             }, 200
         else:

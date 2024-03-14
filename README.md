@@ -21,7 +21,7 @@ Exemplo de corpo da requisição:
 {
   "name": "Nome Completo",
   "email": "usuario@example.com",
-  "password": "SenhaSegura1#",
+  "password": "SenhaSegura1#" // Único padão aceito
 }
 ```
 # Respostas
@@ -133,12 +133,7 @@ Caso a autenticação seja bem-sucedida, a resposta será um JSON contendo:
 ```json
 {
   "message": "user authenticated",
-  "user": {
-    "id": 123,
-    "name": "Nome do Usuário",
-    "email": "usuario@example.com"
-    // Outros campos do usuário
-  },
+  "user_id": 1,
   "statuscode": 200
 }
 ```
