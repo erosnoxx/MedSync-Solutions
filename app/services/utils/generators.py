@@ -1,5 +1,7 @@
 import pytz
 import requests
+import random
+import string
 from datetime import datetime
 from urllib.parse import quote
 
@@ -32,3 +34,21 @@ def get_url(user_id, file_type):
     url = f"https://firebasestorage.googleapis.com/v0/b/innate-watch-406316.appspot.com/o/{path}?alt=media&token={get_token(path)}"
 
     return url
+
+
+def generate_patient_pwd():
+    chars = (
+        random.choice(string.ascii_uppercase),
+        random.choice(string.ascii_lowercase),
+        random.choice(string.digits),
+        random.choice('@#$!%^&+=')
+    )
+
+    pwd_list = list(chars)
+
+    pwd_list.extend(random.choices(string.ascii_letters + string.digits + '@#$!%^&+=', k=8))
+    random.shuffle(pwd_list)
+
+    password = ''.join(pwd_list)
+
+    return password

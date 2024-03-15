@@ -1,20 +1,26 @@
-from app.models.personal.users import *
+from app.models.personal.users import User, UserLevel, Level, ProfilePic
 from app.controllers.extensions import db
 from werkzeug.security import generate_password_hash
 
 
 def SetUser(**kwargs):
-    hashed_password = generate_password_hash(kwargs.get('password'), method='pbkdf2:sha256')
-    user = User(
-        name=kwargs.get('name'),
-        email=kwargs.get('email'),
-        password=hashed_password
-    )
+    user = User.query.filter_by(email=kwargs['email']).first()
+    if user is None:
+        hashed_password = generate_password_hash(
+            kwargs.get('password'),
+            method='pbkdf2:sha256'
+        )
+        user = User(
+            name=kwargs.get('name'),
+            email=kwargs.get('email'),
+            password=hashed_password
+        )
 
-    db.session.add(user)
-    db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
-    return user.id
+        return user.id
+    return None
 
 
 def SetLevel(level_):

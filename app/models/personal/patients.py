@@ -29,6 +29,22 @@ class Patients(db.Model):
     history = db.relationship('History', backref='patients')
 
 
+class PatientUser(db.Model):
+    __tablename__ = 'patient_user'
+
+    id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(
+        db.Integer,
+        db.ForeignKey('patients.id'),
+        nullable=False
+    )
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False
+    )
+
+
 # Record
 class PatientInfo(db.Model):
     __tablename__ = 'patient_info'

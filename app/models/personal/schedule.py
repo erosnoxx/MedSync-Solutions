@@ -18,4 +18,4 @@ class Schedule(db.Model):
         db.ForeignKey('patients.id'),
         nullable=False
     )
-    date = db.Column(db.Date, default=get_now, nullable=False)
+    date = db.Column(db.DateTime, default=get_now, nullable=False)
