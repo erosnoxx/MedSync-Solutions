@@ -1,14 +1,68 @@
 # SUMÁRIO
-
-
-1. [APIs](#apis)
+1. [Sobre o Projeto]()
+2. [Instalação](#instalação)
+    - [Requisitos de Sistema](#1-requisitos-de-sistema)
+    - [Clonar o Repositório](#2-clonar-o-repositório)
+    - [Instalar Dependências](#3-instalar-dependências)
+    - [Fazer Migrações com Flask Migrate](#4-fazer-migrações-com-flask-migrate)
+    - [Executar o Projeto](#5-executar-o-projeto)
+3. [APIs](#apis)
     - [Registro de Usuário](#registro-de-usuário)
     - [Login de Usuário](#login-de-usuário)
     - [Adicionar Paciente](#adicionar-paciente)
 
 ---
 
-## API's
+# Instalação
+
+Siga estas etapas para configurar e executar o projeto localmente:
+
+### 1. Requisitos de Sistema
+
+- Python 3.11.0: Certifique-se de ter o Python instalado em sua máquina. Você pode baixá-lo e instalá-lo a partir do [site oficial do Python](https://www.python.org/downloads/) ou usando um gerenciador de pacotes, como o Anaconda.
+
+### 2. Clonar o Repositório
+
+Clone o repositório do projeto em sua máquina local usando o seguinte comando:
+
+```bash
+git clone git@github.com:erosnoxx/MedSync-Solutions.git
+```
+
+### 3. Instalar Dependências
+
+Navegue até o diretório do projeto e instale as dependências listadas no arquivo `requirements.txt`. Você pode fazer isso executando o seguinte comando:
+
+```bash
+cd seu-repositorio
+pip install -r requirements.txt
+```
+
+### 4. Fazer Migrações com Flask Migrate
+
+Certifique-se de que todas as migrações do banco de dados estejam atualizadas. Se o seu projeto estiver usando Flask Migrate, você pode fazer isso executando os seguintes comandos:
+
+```bash
+flask db init
+flask db migrate
+flask db upgrade
+```
+
+### 5. Executar o Projeto
+
+Após instalar as dependências e fazer as migrações, você pode iniciar o servidor de desenvolvimento. Use o seguinte comando:
+
+```bash
+flask run
+```
+
+O servidor será iniciado e o seu projeto estará disponível localmente. Você pode acessá-lo em um navegador da web digitando `http://localhost:5000`.
+
+Agora você está pronto para começar a trabalhar no projeto localmente!
+
+Se você tiver qualquer problema durante a instalação ou execução do projeto, não hesite em entrar em contato para obter ajuda.
+
+# API's
 
 
 # Registro de Usuário
