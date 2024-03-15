@@ -15,7 +15,7 @@ class Patients(db.Model):
     )
     name = db.Column(db.String(255), nullable=False)
     social_name = db.Column(db.String(255), default='', nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+    date_of_birth = db.Column(db.Date, nullable=False)
     cpf = db.Column(db.String(11), nullable=False)
     escort = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=get_now, nullable=False)

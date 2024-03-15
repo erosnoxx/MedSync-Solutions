@@ -51,7 +51,7 @@ def CreatePatient(**kwargs):
         name=data['name'],
         social_name=data['social_name'],
         cpf=data['cpf'],
-        age=data['age'],
+        date_of_birth=data['date_of_birth'],
         escort=data['escort']
     )
 

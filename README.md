@@ -250,8 +250,8 @@ O corpo da requisição deve ser enviado no formato JSON e conter os seguintes c
 - `name` (*string*): Nome completo do paciente.
 - `social_name` (*string*): Nome social do paciente.
 - `cpf` (*string*): CPF do paciente.
-- `age` (*integer*): Idade do paciente.
-- `escort` (*boolean*): Indica se o paciente precisa de acompanhante.
+- `date_of_birth` (*data*): Data de nascimento do paciente.
+- `escort` (*string*): Nome do acompanhante do paciente.
 - `email` (*string*): Endereço de e-mail do paciente.
 - `date` (*string*): Data do agendamento.
 
@@ -263,10 +263,10 @@ Exemplo de corpo da requisição:
   "name": "Nome do Paciente",
   "social_name": "Nome Social do Paciente",
   "cpf": "123.456.789-00",
-  "age": 30,
-  "escort": true,
+  "data_of_birth": "1980-12-12",
+  "escort": "Nome do Acompanhante",
   "email": "paciente@example.com",
-  "date": "2024-03-15"
+  "date": "2024-03-15 15:30:00"
 }
 ```
 
