@@ -38,6 +38,11 @@ cd seu-repositorio
 pip install -r requirements.txt
 ```
 
+Crie um arquivo nomeado ***.env*** e adicione a seguinte linha:
+```bash
+FLASK_DEBUG=TRUE
+```
+
 ### 4. Fazer Migrações com Flask Migrate
 
 Certifique-se de que todas as migrações do banco de dados estejam atualizadas. Se o seu projeto estiver usando Flask Migrate, você pode fazer isso executando os seguintes comandos:
