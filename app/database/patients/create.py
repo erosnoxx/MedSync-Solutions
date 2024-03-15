@@ -34,7 +34,6 @@ def SetSchedule(**kwargs):
     schedule = Schedule.query.filter_by(date=kwargs['date']).first()
     if schedule is None:
         kwargs['date'] = datetime.strptime(kwargs['date'], '%Y-%m-%dT%H:%M:%S')
-
         schedule = Schedule(**kwargs)
 
         db.session.add(schedule)
@@ -46,6 +45,10 @@ def SetSchedule(**kwargs):
 
 def CreatePatient(**kwargs):
     data = kwargs
+    data['date_of_birth'] = datetime.strptime(
+            kwargs['date_of_birth'],
+            '%Y-%m-%d'
+        ).date()
     patient = SetPatient(
         dr_id=data['dr_id'],
         name=data['name'],

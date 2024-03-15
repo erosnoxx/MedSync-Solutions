@@ -12,7 +12,7 @@ patient_api = Blueprint('patient_api', __name__, url_prefix='/api/v1/patient')
 def add():
     data = request.json
 
-    required_fields = ['dr_id', 'name', 'social_name', 'cpf', 'age', 'escort',
+    required_fields = ['dr_id', 'name', 'social_name', 'cpf', 'date_of_birth', 'escort',
                        'email', 'date']
 
     if not all(field in data for field in required_fields):

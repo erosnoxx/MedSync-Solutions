@@ -4,10 +4,12 @@ from app.services.utils.fb_storage import delete
 
 
 def DeleteUser(user_id):
-    user = User.query.filter_by(id=user_id).firt()
+    user = User.query.filter_by(id=user_id).first()
 
     if user is not None:
+        user_level = UserLevel.query.filter_by(user_id=user.id).first()
         db.session.delete(user)
+        db.session.delete(user_level)
         db.session.commit()
 
         return True

@@ -1,10 +1,10 @@
 from app.controllers.extensions import db
-from app.models.personal.patients import Patients
+from app.models.personal.patients import Patients, PatientUser
 from app.models.personal.schedule import Schedule
 
 
-def DeletePatient(patient_cpf):
-    patient = Patients.query.filter_by(cpf=patient_cpf).first()
+def DeletePatient(patient_id):
+    patient = Patients.query.filter_by(id=patient_id).first()
 
     if patient is not None:
         db.session.delete(patient)
@@ -13,11 +13,21 @@ def DeletePatient(patient_cpf):
     return bool(patient)
 
 
-def DeletePatientSchedule(patient_id):
-    patient = Patients.query.filter_by(id=patient_id).first()
-    
+def DeleteSchedule(schedule_id):
+    schedule = Schedule.query.filter_by(id=schedule_id).first()
+
+    if schedule is not None:
+        db.session.delete(schedule)
+        db.session.commit()
+
+    return bool(schedule)
+
+
+def DeletePatientUser(id):
+    patient = PatientUser.query.filter_by(id=id).first()
+
     if patient is not None:
         db.session.delete(patient)
         db.session.commit()
-    
+
     return bool(patient)

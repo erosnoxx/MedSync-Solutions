@@ -1,4 +1,4 @@
-from app.models.personal.users import User, UserLevel, Level, ProfilePic
+from app.models.personal.users import User, UserLevel, Level, ProfilePic, Employees
 from app.controllers.extensions import db
 from werkzeug.security import generate_password_hash
 
@@ -48,4 +48,11 @@ def SetProfilePic(user_id, url):
     )
 
     db.session.add(profile_pic)
+    db.session.commit()
+
+
+def SetEmployee(user_id, business_id):
+    employee = Employees(user_id=user_id, business_id=business_id)
+
+    db.session.add(employee)
     db.session.commit()
