@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from app.models.personal.patients import Patients
 from app.database.patients.create import CreatePatient, SetSchedule
+from app.database.users.read import IsADoctor
 from app.services.utils.generators import generate_patient_pwd
 from app.services.utils.validators import EmailValidator
 
@@ -15,12 +16,15 @@ def add():
                        'email', 'date']
 
     if not all(field in data for field in required_fields):
-        return {'message': 'Missing required fields', 'statuscode': 400}, 400
+        return {'message': 'missing required fields', 'statuscode': 400}, 400
+
+    if not IsADoctor(data['dr_id']):
+        return {'message': 'invalid dr_id', 'statuscode': 400}, 400
 
     if not EmailValidator(data['email']):
-        return {'message': 'Invalid email', 'statuscode': 400}, 400
+        return {'message': 'invalid email', 'statuscode': 400}, 400
 
-    patient = Patients.query.filter_by(patient_id=data['cpf']).first()
+    patient = Patients.query.filter_by(cpf=data['cpf']).first()
 
     if patient:
         return {'message': 'patient already exists', 'statuscode': 400}, 400
@@ -45,7 +49,7 @@ def add():
     schedule = SetSchedule(
         **{
             'dr_id': data['dr_id'],
-            'user_id': pat_data['user_id'],
+            'dr_id': pat_data['user_id'],
             'patient_id': pat_data['patient_id'],
             'date': data['date']
         }

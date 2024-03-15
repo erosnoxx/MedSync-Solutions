@@ -2,6 +2,7 @@ from app.controllers.extensions import db
 from app.models.personal.patients import Patients, PatientUser
 from app.models.personal.schedule import Schedule
 from app.database.users.create import SetUser, SetUserLevel, SetProfilePic
+from datetime  import datetime
 
 
 def SetPatient(**kwargs):
@@ -14,13 +15,13 @@ def SetPatient(**kwargs):
         db.session.commit()
 
         return patient.id
-    
+
     return None
 
 
 def SetPatientUser(**kwargs):
     patient_user = PatientUser(
-        patient_user=kwargs['patient_id'],
+        patient_id=kwargs['patient_id'],
         user_id=kwargs['user_id']
     )
     db.session.add(patient_user)
@@ -32,6 +33,8 @@ def SetPatientUser(**kwargs):
 def SetSchedule(**kwargs):
     schedule = Schedule.query.filter_by(date=kwargs['date']).first()
     if schedule is None:
+        kwargs['date'] = datetime.strptime(kwargs['date'], '%Y-%m-%dT%H:%M:%S')
+
         schedule = Schedule(**kwargs)
 
         db.session.add(schedule)

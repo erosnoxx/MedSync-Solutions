@@ -36,3 +36,15 @@ def GetLevel(user_id):
             return {'success': False, 'message': 'Level not found'}
     else:
         return {'success': False, 'message': 'User level not found'}
+    
+
+def IsADoctor(user_id):
+    employee = Employees.query.filter_by(user_id=user_id).first()
+
+    if employee is None:
+        return False
+
+    if employee.business_id == 1:
+        return True
+    
+    return False

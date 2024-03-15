@@ -1,4 +1,17 @@
-# APIS - Registro de Usuário
+# SUMÁRIO
+
+
+1. [APIs](#apis)
+    - [Registro de Usuário](#registro-de-usuário)
+    - [Login de Usuário](#login-de-usuário)
+    - [Adicionar Paciente](#adicionar-paciente)
+
+---
+
+## API's
+
+
+# Registro de Usuário
 
 Este endpoint é responsável por registrar um novo usuário no sistema.
 
@@ -100,7 +113,7 @@ Exemplo de resposta para erro interno:
 }
 ```
 
-# API - Login de Usuário
+# Login de Usuário
 
 Este endpoint é responsável por autenticar um usuário existente no sistema.
 
@@ -159,4 +172,78 @@ Caso ocorra um erro interno no servidor durante o processo de autenticação, a 
   "statuscode": 500
 }
 ```
+Ah, entendi! Vou preparar a documentação para o endpoint `add()` da sua API de pacientes. Aqui está:
 
+# Adicionar Paciente
+
+Este endpoint permite adicionar um novo paciente ao sistema.
+
+## Requisição
+
+- **Método:** `POST`
+- **URL:** `/api/v1/patient/add/`
+
+### Parâmetros da Requisição
+
+O corpo da requisição deve ser enviado no formato JSON e conter os seguintes campos:
+
+- `dr_id` (*integer*): ID do médico responsável pelo paciente.
+- `name` (*string*): Nome completo do paciente.
+- `social_name` (*string*): Nome social do paciente.
+- `cpf` (*string*): CPF do paciente.
+- `age` (*integer*): Idade do paciente.
+- `escort` (*boolean*): Indica se o paciente precisa de acompanhante.
+- `email` (*string*): Endereço de e-mail do paciente.
+- `date` (*string*): Data do agendamento.
+
+Exemplo de corpo da requisição:
+
+```json
+{
+  "dr_id": 123,
+  "name": "Nome do Paciente",
+  "social_name": "Nome Social do Paciente",
+  "cpf": "123.456.789-00",
+  "age": 30,
+  "escort": true,
+  "email": "paciente@example.com",
+  "date": "2024-03-15"
+}
+```
+
+### Respostas
+
+#### Sucesso (Código 200)
+
+Caso o paciente seja registrado com sucesso, a resposta será um JSON contendo:
+
+- `message` (*string*): Mensagem indicando o sucesso.
+- `user_id` (*integer*): ID do paciente registrado.
+- `patient_id` (*integer*): ID do paciente.
+- `schedule_id` (*integer*): ID do agendamento.
+- `pwd` (*string*): Senha gerada para o paciente.
+- `statuscode` (*integer*): Código de status HTTP 200.
+
+Exemplo de resposta de sucesso:
+
+```json
+{
+  "message": "patient registered successfully",
+  "user_id": 1,
+  "patient_id": 1,
+  "schedule_id": 123,
+  "pwd": "SenhaGerada1!",
+  "statuscode": 200
+}
+```
+
+#### Erros
+
+- `missing required fields` (Código 400): Campos obrigatórios estão faltando no corpo da requisição.
+- `invalid dr_id` (Código 400): ID do médico fornecido é inválido.
+- `invalid email` (Código 400): O endereço de e-mail fornecido é inválido.
+- `patient already exists` (Código 400): O paciente já está registrado no sistema.
+- `busy schedule` (Código 400): O médico possui uma agenda ocupada na data especificada.
+- `internal server error` (Código 500): Ocorreu um erro interno no servidor durante o processo de registro.
+
+As mensagens de erro serão acompanhadas pelo código de status HTTP correspondente.
