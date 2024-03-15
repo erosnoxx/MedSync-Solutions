@@ -40,4 +40,3 @@ def delete(url):
         return True
     except:
         return False
-    

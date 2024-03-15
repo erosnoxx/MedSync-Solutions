@@ -44,14 +44,19 @@
                 </a>
 
                 <div class="sidebar">
-                    <a class="menu-items {%if endpoint == 'index' %} active {% endif %}" href="/home">
+                    <a class="menu-items 
+                    {%if endpoint == 'index' %} active {% endif %}"
+                    {%if endpoint != 'index' %} href="/home" {%endif%}>
                         <span> <i class="uil uil-home"> </i></span>
                         <h3>Início</h3>
                     </a>
-                    <a class="menu-items">
+                    <a class="menu-items
+                    {%if endpoint == 'patients' %} active {%endif%}"
+                    {%if endpoint != 'patients'%} href="/record/" {%endif%}>
                         <span> <i class="uil uil-monitor-heart-rate"></i> </span>
                         <h3>Atendimento</h3>
                     </a>
+                    {% if user_level in ['adm', 'usr'] %}
                     <a class="menu-items">
                         <span> <i class="uil uil-calendar-alt"></i></span>
                         <h3>Agenda</h3>
@@ -72,6 +77,7 @@
                         <span> <i class="uil uil-chart-bar"></i> </span>
                         <h3>Financeiro</h3>
                     </a>
+                    {%endif%}
                 </div>
             </div>
             {% block content %}

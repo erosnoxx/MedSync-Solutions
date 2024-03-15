@@ -1,20 +1,22 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from app.models.personal.users import ProfilePic
 from flask_login import login_required, current_user
+from app.database.users.read import GetLevel
 
 
 home = Blueprint('home', __name__)
 
 # Context manager
 @home.context_processor
-def pp_loader():
-    def load_profile_pic():
+def loader():
+    def load_pp():
         profile_pic = ProfilePic.query.filter_by(user_id=current_user.id).first()
-        print(profile_pic)
         return profile_pic.url if profile_pic else None
-    
+
+    user_level = GetLevel(user_id=current_user.id)
+
     endpoint = request.endpoint.split('.')[1]
-    return {'profile_pic': load_profile_pic(), 'endpoint': endpoint}
+    return {'profile_pic': load_pp(), 'endpoint': endpoint, 'user_level': user_level}
 
 
 @home.route('/')

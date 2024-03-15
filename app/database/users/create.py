@@ -56,3 +56,21 @@ def SetEmployee(user_id, business_id):
 
     db.session.add(employee)
     db.session.commit()
+
+
+def CreateUser(**kwargs):
+    data = kwargs
+    user_id = SetUser(
+        **{
+            'name': data['name'],
+            'email': data['email'],
+            'password': data['password']
+        }
+    )
+
+    SetUserLevel(level_='usr', user_id=user_id)
+
+    SetProfilePic(
+        user_id=user_id,
+        url="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    )
