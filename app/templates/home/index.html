@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedSync Solutions - </title>
+    <title>MedSync Solutions - {{endpoint}}</title>
     <link rel="stylesheet" href="../../static/css/home/style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 </head>
@@ -44,11 +44,11 @@
                 </a>
 
                 <div class="sidebar">
-                    <a class="menu-items {%if active_page == 'home.index'%} active {% endif %}" href="/home">
+                    <a class="menu-items {%if endpoint == 'index' %} active {% endif %}" href="/home">
                         <span> <i class="uil uil-home"> </i></span>
                         <h3>Início</h3>
                     </a>
-                    <a class="menu-items {%if active_page == 'home.record'%} active {% endif %}" href="/record">
+                    <a class="menu-items">
                         <span> <i class="uil uil-monitor-heart-rate"></i> </span>
                         <h3>Atendimento</h3>
                     </a>

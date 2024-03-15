@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from app.models.personal.users import ProfilePic
 from flask_login import login_required, current_user
 
@@ -12,7 +12,9 @@ def pp_loader():
         profile_pic = ProfilePic.query.filter_by(user_id=current_user.id).first()
         print(profile_pic)
         return profile_pic.url if profile_pic else None
-    return {'profile_pic': load_profile_pic()}
+    
+    endpoint = request.endpoint.split('.')[1]
+    return {'profile_pic': load_profile_pic(), 'endpoint': endpoint}
 
 
 @home.route('/')
