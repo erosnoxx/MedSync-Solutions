@@ -1,0 +1,54 @@
+{% extends "home/index.html" %}
+
+{% block content %}
+    <div class="middle">
+        <div class="patient-info">
+            <h2>Dados do Paciente </h2>
+            <div class="general-info">
+                <h3>Informações Gerais</h3>
+                <div class="info-patient">
+                    <form method="post">
+                        {{form.csrf_token}}
+                        <div class="input-group">
+                            <span>Nome do Paciente</span>
+                            {{form.name(placeholder="Nome do Paciente", value=patient.name)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Nome social</span>
+                            {{form.social_name(placeholder="Nome Social", value=patient.social_name)}}
+                        </div>
+                        <div class="input-group">
+                            <span>CPF</span>
+                            {{form.cpf(placeholder="CPF", value=patient.cpf)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Idade</span>
+                            {{form.age(placeholder="Idade", value=patient.age)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Acompanhante</span>
+                            {{form.escort(placeholder="Acompanhante", value=patient.escort)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Estado Cívil</span>
+                            {{form.mar_status(placeholder="Estado Cívil", value=patient.mar_status)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Ocupação</span>
+                            {{form.occupation(placeholder="Ocupação", value=patient.occupation)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Escolaridade</span>
+                            {{form.education(placeholder="Escolaridade", value=patient.education)}}
+                        </div>
+                        <div class="input-group">
+                            <span>Convênio Médico</span>
+                            {{form.health_insurance(placeholder="Convênio Médico")}}
+                        </div>
+                        {{form.submit(value="Cadastrar", class="btn btn-primary", placeholder="Nome do Paciente")}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
